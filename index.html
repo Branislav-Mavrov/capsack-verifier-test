@@ -27,15 +27,15 @@
     }
 
     @keyframes show-check {
-      0%, 42% { opacity: 1; transform: scale(1); }
-      50%, 92% { opacity: 0; transform: scale(0.82); }
-      100% { opacity: 1; transform: scale(1); }
+      0%, 42% { opacity: 0; transform: scale(0.82); }
+      50%, 92% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.82); }
     }
 
     @keyframes show-swallow {
-      0%, 42% { opacity: 0; transform: translate(-10px, 7px) scale(0.82); }
-      50%, 92% { opacity: 1; transform: translate(0, 0) scale(1); }
-      100% { opacity: 0; transform: translate(10px, -7px) scale(0.82); }
+      0%, 42% { opacity: 1; transform: translate(0, 0) scale(1); }
+      50%, 92% { opacity: 0; transform: translate(10px, -7px) scale(0.88); }
+      100% { opacity: 1; transform: translate(0, 0) scale(1); }
     }
 
     .animate-checkmark {
@@ -96,13 +96,15 @@
     }
 
     .badge-check {
+      opacity: 0;
       animation: show-check 4s ease-in-out 1s infinite;
     }
 
     .badge-swallow {
-      width: 5.75rem;
+      width: 7rem;
       height: auto;
-      opacity: 0;
+      max-width: none;
+      opacity: 1;
       filter: brightness(0);
       animation: show-swallow 4s ease-in-out 1s infinite;
     }
@@ -122,8 +124,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .badge-check { animation: none; }
-      .badge-swallow { display: none; }
+      .badge-check { display: none; animation: none; }
+      .badge-swallow { display: block; animation: none; opacity: 1; transform: none; }
       .verification-ring,
       .verification-ring::after { animation: none; opacity: 0.35; }
     }
