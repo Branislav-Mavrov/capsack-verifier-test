@@ -61,9 +61,38 @@
 
     .badge-symbol {
       position: absolute;
-      z-index: 1;
+      z-index: 2;
       transform-origin: center;
       will-change: opacity, transform;
+    }
+
+    .verification-badge {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .verification-ring {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border: 2px solid rgba(5, 150, 105, 0.48);
+      border-radius: 9999px;
+      pointer-events: none;
+      animation: verification-pulse 2s ease-out infinite;
+    }
+
+    .verification-ring::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(5, 150, 105, 0.28);
+      border-radius: inherit;
+      animation: verification-pulse 2s ease-out 0.65s infinite;
+    }
+
+    @keyframes verification-pulse {
+      0% { opacity: 0.72; transform: scale(0.72); }
+      70%, 100% { opacity: 0; transform: scale(1.42); }
     }
 
     .badge-check {
@@ -71,10 +100,10 @@
     }
 
     .badge-swallow {
-      width: 3.4rem;
+      width: 4.35rem;
       height: auto;
       opacity: 0;
-      filter: brightness(0) invert(1);
+      filter: brightness(0);
       animation: show-swallow 4s ease-in-out 1s infinite;
     }
 
@@ -88,9 +117,15 @@
       display: none;
     }
 
+    #badge-container.is-invalid .verification-ring {
+      display: none;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .badge-check { animation: none; }
       .badge-swallow { display: none; }
+      .verification-ring,
+      .verification-ring::after { animation: none; opacity: 0.35; }
     }
 
     body { box-sizing: border-box; }
@@ -175,12 +210,12 @@
         <div id="verify-state" class="hidden relative rounded-3xl p-8 md:p-10 shadow-2xl animate-fade-up" style="background: linear-gradient(180deg, #f8f6f3 0%, #f0ece6 100%);">
 
           <div class="flex justify-center mb-6">
-            <div id="badge-container" class="relative w-20 h-20 rounded-full flex items-center justify-center animate-scale-in" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); box-shadow: 0 8px 32px rgba(5, 150, 105, 0.4);">
+            <div id="badge-container" class="verification-badge relative w-20 h-20 rounded-full flex items-center justify-center animate-scale-in">
+              <span id="badge-ping" class="verification-ring" aria-hidden="true"></span>
               <svg id="badge-icon" class="badge-symbol badge-check w-10 h-10" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path class="animate-checkmark" d="M5 13l4 4L19 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path class="animate-checkmark" d="M5 13l4 4L19 7" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
               <img id="badge-swallow" class="badge-symbol badge-swallow" src="Swallow-fullblack.svg" alt="" aria-hidden="true">
-              <div id="badge-ping" class="absolute inset-0 rounded-full animate-ping opacity-20" style="background-color: #059669;"></div>
             </div>
           </div>
 
