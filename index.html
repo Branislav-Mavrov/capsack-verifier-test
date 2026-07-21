@@ -33,8 +33,10 @@
     }
 
     @keyframes show-swallow {
-      0%, 42% { opacity: 1; transform: translate(0, 0) scale(1); }
-      50%, 92% { opacity: 0; transform: translate(10px, -7px) scale(0.88); }
+      0% { opacity: 0; transform: translate(-22px, 7px) scale(0.9); }
+      8%, 42% { opacity: 1; transform: translate(0, 0) scale(1); }
+      50% { opacity: 0; transform: translate(22px, -7px) scale(0.92); }
+      51%, 92% { opacity: 0; transform: translate(-22px, 7px) scale(0.9); }
       100% { opacity: 1; transform: translate(0, 0) scale(1); }
     }
 
@@ -78,7 +80,8 @@
       border: 2px solid rgba(5, 150, 105, 0.48);
       border-radius: 9999px;
       pointer-events: none;
-      animation: verification-pulse 2s ease-out infinite;
+      opacity: 0;
+      animation: verification-pulse 4s ease-out infinite;
     }
 
     .verification-ring::after {
@@ -87,17 +90,25 @@
       inset: 8px;
       border: 1px solid rgba(5, 150, 105, 0.28);
       border-radius: inherit;
-      animation: verification-pulse 2s ease-out 0.65s infinite;
+      opacity: 0;
+      animation: verification-pulse-secondary 4s ease-out infinite;
     }
 
     @keyframes verification-pulse {
-      0% { opacity: 0.72; transform: scale(0.72); }
-      70%, 100% { opacity: 0; transform: scale(1.42); }
+      0%, 49% { opacity: 0; transform: scale(0.72); }
+      50% { opacity: 0.72; transform: scale(0.72); }
+      82%, 100% { opacity: 0; transform: scale(1.42); }
+    }
+
+    @keyframes verification-pulse-secondary {
+      0%, 61% { opacity: 0; transform: scale(0.72); }
+      62% { opacity: 0.55; transform: scale(0.72); }
+      94%, 100% { opacity: 0; transform: scale(1.42); }
     }
 
     .badge-check {
       opacity: 0;
-      animation: show-check 4s ease-in-out 1s infinite;
+      animation: show-check 4s ease-in-out infinite;
     }
 
     .badge-swallow {
@@ -106,7 +117,7 @@
       max-width: none;
       opacity: 1;
       filter: brightness(0);
-      animation: show-swallow 4s ease-in-out 1s infinite;
+      animation: show-swallow 4s ease-in-out infinite;
     }
 
     #badge-container.is-invalid .badge-check {
