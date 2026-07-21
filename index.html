@@ -285,6 +285,7 @@
       "los-angeles": "Los Angeles, CA",
       "miami": "Miami, FL",
       "new-haven": "New Haven, CT",
+      "new-jersey": "New Jersey",
       "new-york": "New York, NY",
       "orlando": "Orlando, FL",
       "philadelphia": "Philadelphia, PA",
@@ -317,7 +318,11 @@
     const isValidWeight = /^\d+(\.\d+)?$/.test(weightRaw);
     const isValidCapsackId = /^[a-zA-Z0-9-]+$/.test(capsackIdRaw);
 
-    const isValidQr = hasAllPublicParams && isValidMetro && isValidWeight && isValidCapsackId;
+    // A metro-only URL is a valid public verification link. Weight and capsack ID
+    // are optional, but when one is present both must be present and valid.
+    const hasNoMetricsParams = !hasWeightParam && !hasIdParam;
+    const hasValidMetricsParams = hasWeightParam && hasIdParam && isValidWeight && isValidCapsackId;
+    const isValidQr = hasMetroParam && isValidMetro && (hasNoMetricsParams || hasValidMetricsParams);
 
     const today = new Date().toLocaleDateString('en-US', {
       month: 'short',
@@ -370,7 +375,9 @@
       }
       if (capsackElement) capsackElement.textContent = capsackIdRaw;
 
-      if (metricsCard) metricsCard.classList.remove('hidden');
+      if (metricsCard) {
+        metricsCard.classList.toggle('hidden', hasNoMetricsParams);
+      }
       if (errorPanel) errorPanel.classList.add('hidden');
 
       if (footerText) {
@@ -457,8 +464,8 @@
 
     // Routing logic:
     // 1) No public params at all -> Home
-    // 2) All 3 public params present and valid -> Verified
-    // 3) Any other case involving public params -> Invalid
+    // 2) Valid metro, optionally with a valid weight + ID pair -> Verified
+    // 3) Unknown metro or incomplete/invalid optional data -> Invalid
     if (!hasAnyPublicParams) {
       showHomeState();
     } else if (isValidQr) {
