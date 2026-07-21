@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentication Verified</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    .font-display { font-family: 'DM Serif Display', serif; }
+    .font-body { font-family: 'DM Sans', sans-serif; }
+
+    @keyframes checkmark {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes scale-in {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fade-up {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes show-check {
+      0%, 42% { opacity: 1; transform: scale(1); }
+      50%, 92% { opacity: 0; transform: scale(0.82); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes show-swallow {
+      0%, 42% { opacity: 0; transform: translate(-10px, 7px) scale(0.82); }
+      50%, 92% { opacity: 1; transform: translate(0, 0) scale(1); }
+      100% { opacity: 0; transform: translate(10px, -7px) scale(0.82); }
+    }
+
+    .animate-checkmark {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: checkmark 0.6s ease-out 0.3s forwards;
+    }
+
+    .animate-scale-in {
+      animation: scale-in 0.5s ease-out forwards;
+    }
+
+    .animate-fade-up {
+      opacity: 0;
+      animation: fade-up 0.6s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+
+    .badge-symbol {
+      position: absolute;
+      z-index: 1;
+      transform-origin: center;
+      will-change: opacity, transform;
+    }
+
+    .badge-check {
+      animation: show-check 4s ease-in-out 1s infinite;
+    }
+
+    .badge-swallow {
+      width: 3.4rem;
+      height: auto;
+      opacity: 0;
+      filter: brightness(0) invert(1);
+      animation: show-swallow 4s ease-in-out 1s infinite;
+    }
+
+    #badge-container.is-invalid .badge-check {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    #badge-container.is-invalid .badge-swallow {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .badge-check { animation: none; }
+      .badge-swallow { display: none; }
+    }
+
+    body { box-sizing: border-box; }
+  </style>
+</head>
+
+<body class="h-full font-body bg-black">
+  <div id="app-wrapper" class="h-full w-full overflow-auto relative">
+    <div class="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-40 z-0" style="background-image: url(https://cdn.prod.website-files.com/6891dd4b18dbac62ec4179a4/69a5f476184e245641cf795f_369_2.jpg);"></div>
+
+    <div class="relative z-10 min-h-full w-full flex flex-col items-center justify-center px-4 py-8">
+      <div class="w-full max-w-md relative">
+        <div class="absolute -top-4 -left-4 w-24 h-24 border border-emerald-500/20 rounded-full animate-scale-in"></div>
+        <div class="absolute -bottom-6 -right-6 w-32 h-32 border border-emerald-500/10 rounded-full animate-scale-in delay-1"></div>
+
+        <!-- HOME STATE -->
+        <div id="home-state" class="hidden relative rounded-3xl p-8 md:p-10 shadow-2xl animate-fade-up" style="background: linear-gradient(180deg, #f8f6f3 0%, #f0ece6 100%);">
+          <div class="flex justify-center mb-6">
+            <div class="relative w-20 h-20 rounded-full flex items-center justify-center animate-scale-in" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); box-shadow: 0 8px 32px rgba(5, 150, 105, 0.4);">
+              <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M12 3l7 4v5c0 5-3.5 8.5-7 9.8C8.5 20.5 5 17 5 12V7l7-4z" stroke-linejoin="round"/>
+              </svg>
+              <div class="absolute inset-0 rounded-full animate-ping opacity-20" style="background-color: #059669;"></div>
+            </div>
+          </div>
+
+          <div class="text-center mb-6 animate-fade-up delay-2">
+            <p class="text-xs font-semibold tracking-[0.25em] uppercase mb-2" style="color: #1a1a1a;">Real Credential</p>
+            <h1 class="font-display text-3xl md:text-4xl leading-tight" style="color: #1a1a1a;">
+              Capsack Authenticity Verifier
+            </h1>
+          </div>
+
+          <div class="flex justify-center mb-6 animate-fade-up delay-3">
+            <img src="https://cdn.prod.website-files.com/6891dd4b18dbac62ec4179a4/69a47aa7c23e205458726e40_1193936c1d.jpg" alt="US Flag" class="w-full h-auto rounded-xl" loading="lazy">
+          </div>
+
+          <p class="text-center text-base leading-relaxed mb-6 animate-fade-up delay-3" style="color: #4a4a4a;">
+            This page is used to verify the origin and declared quality of the second-hand clothes and shoes contained in the scanned capsack.
+          </p>
+
+          <p class="text-center text-sm leading-relaxed mb-8 animate-fade-up delay-3" style="color: #6b6b6b;">
+            Each QR code corresponds to a specific capsack and provides key information about its origin, weight, and identification.
+          </p>
+
+          <div class="rounded-xl p-5 mb-6 animate-fade-up delay-4" style="background-color: #ffffff; border: 1px solid #e8e4de;">
+            <p class="text-xs font-semibold tracking-wider uppercase mb-3 text-center" style="color: #059669;">Scan a valid QR code to view</p>
+            <div class="grid grid-cols-2 gap-3 text-center">
+              <div class="rounded-lg p-3" style="background-color: #f8f6f3;">
+                <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Collection</p>
+                <p class="font-display text-lg" style="color: #1a1a1a;">Metro Area</p>
+              </div>
+              <div class="rounded-lg p-3" style="background-color: #f8f6f3;">
+                <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Capsack</p>
+                <p class="font-display text-lg" style="color: #1a1a1a;">Weight</p>
+              </div>
+              <div class="rounded-lg p-3" style="background-color: #f8f6f3;">
+                <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Capsack</p>
+                <p class="font-display text-lg" style="color: #1a1a1a;">Number</p>
+              </div>
+              <div class="rounded-lg p-3" style="background-color: #f8f6f3;">
+                <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Verification</p>
+                <p class="font-display text-lg" style="color: #059669;">Status</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4 mb-6 animate-fade-up delay-5">
+            <div class="flex-1 h-px" style="background: linear-gradient(90deg, transparent, #d4cfc7, transparent);"></div>
+            <svg class="w-5 h-5" style="color: #059669;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <div class="flex-1 h-px" style="background: linear-gradient(90deg, transparent, #d4cfc7, transparent);"></div>
+          </div>
+
+          <p class="text-center text-sm animate-fade-up delay-5" style="color: #6b6b6b;">
+            Built for transparency and trust in the second-hand wholesale trade.
+          </p>
+        </div>
+
+        <!-- VERIFIED / INVALID STATE -->
+        <div id="verify-state" class="hidden relative rounded-3xl p-8 md:p-10 shadow-2xl animate-fade-up" style="background: linear-gradient(180deg, #f8f6f3 0%, #f0ece6 100%);">
+
+          <div class="flex justify-center mb-6">
+            <div id="badge-container" class="relative w-20 h-20 rounded-full flex items-center justify-center animate-scale-in" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); box-shadow: 0 8px 32px rgba(5, 150, 105, 0.4);">
+              <svg id="badge-icon" class="badge-symbol badge-check w-10 h-10" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path class="animate-checkmark" d="M5 13l4 4L19 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <img id="badge-swallow" class="badge-symbol badge-swallow" src="Swallow-fullblack.svg" alt="" aria-hidden="true">
+              <div id="badge-ping" class="absolute inset-0 rounded-full animate-ping opacity-20" style="background-color: #059669;"></div>
+            </div>
+          </div>
+
+          <div class="text-center mb-6 animate-fade-up delay-2">
+            <p id="subtitle" class="text-xs font-semibold tracking-[0.25em] uppercase mb-2" style="color: #059669;">Authenticity Verified</p>
+            <h1 id="main-title" class="font-display text-3xl md:text-4xl leading-tight" style="color: #1a1a1a;">
+              Second-Hand Credential<br>
+              <span id="main-title-accent" style="color: #047857;">Untouched</span>
+            </h1>
+          </div>
+
+          <div class="flex justify-center mb-6 animate-fade-up delay-3">
+            <img src="https://cdn.prod.website-files.com/6891dd4b18dbac62ec4179a4/69a47aa7c23e205458726e40_1193936c1d.jpg" alt="US Flag" class="w-full h-auto rounded-xl" loading="lazy">
+          </div>
+
+          <p id="description" class="text-center text-base leading-relaxed mb-8 animate-fade-up delay-3" style="color: #4a4a4a;">
+            This Capsack Contains<br>
+            Second Hand Clothes and Shoes<br>
+            Proudly Collected and Packed in the USA
+          </p>
+
+          <div id="location-card" class="rounded-xl p-5 mb-4 animate-fade-up delay-4" style="background-color: #ffffff; border: 1px solid #e8e4de;">
+            <div class="flex items-start gap-4">
+              <div id="location-icon-wrap" class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);">
+                <svg class="w-6 h-6" style="color: #059669;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div class="flex-1">
+                <p id="origin-label" class="text-xs font-semibold tracking-wider uppercase mb-1" style="color: #059669;">Collection Origin</p>
+                <p id="location-text" class="font-display text-xl" style="color: #1a1a1a;">San Francisco, CA</p>
+                <p id="country-text" class="text-sm" style="color: #6b6b6b;">United States of America</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="metrics-card" class="rounded-xl p-4 mb-6 animate-fade-up delay-4 flex items-center justify-between shadow-sm" style="background-color: #ffffff; border: 1px solid #e8e4de;">
+            <div class="text-center flex-1 border-r" style="border-color: #e8e4de;">
+              <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Weight</p>
+              <p id="weight-text" class="font-display text-xl" style="color: #1a1a1a;">369 <span class="text-sm font-body text-gray-500">lbs</span></p>
+            </div>
+            <div class="text-center flex-1">
+              <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Capsack #</p>
+              <p id="capsack-text" class="font-display text-xl" style="color: #059669;">2468</p>
+            </div>
+          </div>
+
+          <div id="error-panel" class="hidden rounded-xl p-5 mb-6 animate-fade-up delay-4" style="background-color: #fff7f7; border: 1px solid #fecaca;">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);">
+                <svg class="w-6 h-6" style="color: #dc2626;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 8v5" stroke-linecap="round"/>
+                  <circle cx="12" cy="16.5" r="0.7" fill="currentColor" stroke="none"/>
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-xs font-semibold tracking-wider uppercase mb-1" style="color: #dc2626;">Verification Error</p>
+                <p class="font-display text-xl mb-1" style="color: #1a1a1a;">Invalid QR Code</p>
+                <p class="text-sm" style="color: #6b6b6b;">
+                  The scanned link is missing required verification data or contains an unsupported format.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4 mb-6 animate-fade-up delay-5">
+            <div class="flex-1 h-px" style="background: linear-gradient(90deg, transparent, #d4cfc7, transparent);"></div>
+            <svg class="w-5 h-5" id="bottom-shield" style="color: #059669;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <div class="flex-1 h-px" style="background: linear-gradient(90deg, transparent, #d4cfc7, transparent);"></div>
+          </div>
+
+          <div class="flex items-center justify-center gap-6 pt-2 animate-fade-up delay-5">
+            <div class="text-center">
+              <p id="verified-label" class="text-xs uppercase tracking-wider mb-1" style="color: #9a9a9a;">Verified</p>
+              <p id="verify-date" class="text-sm font-semibold" style="color: #1a1a1a;">Today</p>
+            </div>
+            <div class="w-px h-8" style="background-color: #e8e4de;"></div>
+            <div class="text-center">
+              <p class="text-xs uppercase tracking-wider mb-1" style="color: #9a9a9a;">Status</p>
+              <p id="status-text" class="text-sm font-semibold" style="color: #059669;">Authentic ✓</p>
+            </div>
+          </div>
+        </div>
+
+        <p id="footer-text" class="text-center text-sm mt-8 animate-fade-up delay-5" style="color: rgba(255,255,255,0.78);">
+          Sustainable fashion starts with transparency
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const metroMap = {
+      "chicago": "Chicago, IL",
+      "dallas": "Dallas, TX",
+      "fresno": "Fresno, CA",
+      "houston": "Houston, TX",
+      "los-angeles": "Los Angeles, CA",
+      "miami": "Miami, FL",
+      "new-haven": "New Haven, CT",
+      "new-york": "New York, NY",
+      "orlando": "Orlando, FL",
+      "philadelphia": "Philadelphia, PA",
+      "portland": "Portland, OR",
+      "sacramento": "Sacramento, CA",
+      "san-diego": "San Diego, CA",
+      "san-francisco": "San Francisco, CA",
+      "santa-rosa": "Santa Rosa, CA",
+      "seattle": "Seattle, WA",
+      "tampa": "Tampa, FL",
+      "washington-dc": "Washington D.C."
+    };
+
+    const params = new URLSearchParams(window.location.search);
+
+    // Read only the 3 public frontend parameters
+    const metroSlug = (params.get('metro') || '').toLowerCase().trim();
+    const weightRaw = (params.get('weight') || '').trim();
+    const capsackIdRaw = (params.get('id') || '').trim();
+
+    // Presence of the 3 public parameters only
+    const hasMetroParam = params.has('metro');
+    const hasWeightParam = params.has('weight');
+    const hasIdParam = params.has('id');
+
+    const hasAnyPublicParams = hasMetroParam || hasWeightParam || hasIdParam;
+    const hasAllPublicParams = hasMetroParam && hasWeightParam && hasIdParam;
+
+    const isValidMetro = Object.prototype.hasOwnProperty.call(metroMap, metroSlug);
+    const isValidWeight = /^\d+(\.\d+)?$/.test(weightRaw);
+    const isValidCapsackId = /^[a-zA-Z0-9-]+$/.test(capsackIdRaw);
+
+    const isValidQr = hasAllPublicParams && isValidMetro && isValidWeight && isValidCapsackId;
+
+    const today = new Date().toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+
+    const homeState = document.getElementById('home-state');
+    const verifyState = document.getElementById('verify-state');
+    const footerText = document.getElementById('footer-text');
+
+    const dateElement = document.getElementById('verify-date');
+    const locationElement = document.getElementById('location-text');
+    const weightElement = document.getElementById('weight-text');
+    const capsackElement = document.getElementById('capsack-text');
+    const descriptionElement = document.getElementById('description');
+    const subtitleElement = document.getElementById('subtitle');
+    const mainTitleElement = document.getElementById('main-title');
+    const statusElement = document.getElementById('status-text');
+    const countryElement = document.getElementById('country-text');
+    const badgeContainer = document.getElementById('badge-container');
+    const badgeIcon = document.getElementById('badge-icon');
+    const badgePing = document.getElementById('badge-ping');
+    const locationCard = document.getElementById('location-card');
+    const metricsCard = document.getElementById('metrics-card');
+    const errorPanel = document.getElementById('error-panel');
+    const originLabel = document.getElementById('origin-label');
+    const verifiedLabel = document.getElementById('verified-label');
+    const bottomShield = document.getElementById('bottom-shield');
+
+    function showHomeState() {
+      homeState.classList.remove('hidden');
+      verifyState.classList.add('hidden');
+
+      if (footerText) {
+        footerText.textContent = 'Built for transparency and trust in the second-hand wholesale trade.';
+      }
+    }
+
+    function showVerifiedState() {
+      homeState.classList.add('hidden');
+      verifyState.classList.remove('hidden');
+
+      const metroDisplay = metroMap[metroSlug];
+
+      if (dateElement) dateElement.textContent = today;
+      if (locationElement) locationElement.textContent = metroDisplay;
+      if (weightElement) {
+        weightElement.innerHTML = `${weightRaw} <span class="text-sm font-body text-gray-500">lbs</span>`;
+      }
+      if (capsackElement) capsackElement.textContent = capsackIdRaw;
+
+      if (metricsCard) metricsCard.classList.remove('hidden');
+      if (errorPanel) errorPanel.classList.add('hidden');
+
+      if (footerText) {
+        footerText.textContent = 'Sustainable fashion starts with transparency';
+      }
+    }
+
+    function showInvalidState() {
+      homeState.classList.add('hidden');
+      verifyState.classList.remove('hidden');
+
+      if (dateElement) dateElement.textContent = today;
+
+      if (subtitleElement) {
+        subtitleElement.textContent = 'Verification Failed';
+        subtitleElement.style.color = '#dc2626';
+      }
+
+      if (mainTitleElement) {
+        mainTitleElement.innerHTML = 'Invalid QR Code';
+      }
+
+      if (descriptionElement) {
+        descriptionElement.innerHTML = 'This verification link is incomplete or contains invalid capsack information.';
+        descriptionElement.style.color = '#6b7280';
+      }
+
+      if (originLabel) {
+        originLabel.style.color = '#dc2626';
+      }
+
+      if (locationElement) {
+        locationElement.textContent = 'Unavailable';
+      }
+
+      if (countryElement) {
+        countryElement.textContent = 'Please scan a valid capsack QR code';
+      }
+
+      if (statusElement) {
+        statusElement.textContent = 'Invalid ✕';
+        statusElement.style.color = '#dc2626';
+      }
+
+      if (verifiedLabel) {
+        verifiedLabel.textContent = 'Checked';
+      }
+
+      if (badgeContainer) {
+        badgeContainer.classList.add('is-invalid');
+        badgeContainer.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+        badgeContainer.style.boxShadow = '0 8px 32px rgba(220, 38, 38, 0.35)';
+      }
+
+      if (badgePing) {
+        badgePing.style.backgroundColor = '#dc2626';
+      }
+
+      if (badgeIcon) {
+        badgeIcon.innerHTML = '<path d="M8 8l8 8M16 8l-8 8" stroke="white" stroke-width="2.5" stroke-linecap="round" />';
+      }
+
+      if (locationCard) {
+        locationCard.style.border = '1px solid #fecaca';
+        locationCard.style.backgroundColor = '#fff7f7';
+      }
+
+      if (bottomShield) {
+        bottomShield.style.color = '#dc2626';
+      }
+
+      if (metricsCard) {
+        metricsCard.classList.add('hidden');
+      }
+
+      if (errorPanel) {
+        errorPanel.classList.remove('hidden');
+      }
+
+      if (footerText) {
+        footerText.textContent = 'Verification failed – please use a valid QR code';
+      }
+    }
+
+    // Routing logic:
+    // 1) No public params at all -> Home
+    // 2) All 3 public params present and valid -> Verified
+    // 3) Any other case involving public params -> Invalid
+    if (!hasAnyPublicParams) {
+      showHomeState();
+    } else if (isValidQr) {
+      showVerifiedState();
+    } else {
+      showInvalidState();
+    }
+  </script>
+</body>
+</html>
