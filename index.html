@@ -34,8 +34,8 @@
 
     @keyframes show-swallow {
       0% { opacity: 0; transform: scale(0.9); }
-      10%, 40% { opacity: 1; transform: scale(1); }
-      50%, 100% { opacity: 0; transform: scale(0.8); }
+      5%, 45% { opacity: 1; transform: scale(1); }
+      50%, 100% { opacity: 0; transform: scale(0.9); }
     }
 
     .animate-checkmark {
@@ -119,17 +119,28 @@
     }
 
     #badge-container.is-invalid .badge-check {
-      animation: none;
-      opacity: 1;
-      transform: none;
+      animation: show-check 4s ease-in-out infinite;
     }
 
     #badge-container.is-invalid .badge-swallow {
-      display: none;
+      display: block;
     }
 
     #badge-container.is-invalid .verification-ring {
-      display: none;
+      display: block;
+      border-color: rgba(220, 38, 38, 0.48);
+    }
+
+    #badge-container.is-invalid .verification-ring::after {
+      border-color: rgba(220, 38, 38, 0.28);
+    }
+
+    .home-swallow {
+      width: 7rem;
+      height: auto;
+      max-width: none;
+      display: block;
+      filter: brightness(0);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -155,11 +166,8 @@
         <!-- HOME STATE -->
         <div id="home-state" class="hidden relative rounded-3xl p-8 md:p-10 shadow-2xl animate-fade-up" style="background: linear-gradient(180deg, #f8f6f3 0%, #f0ece6 100%);">
           <div class="flex justify-center mb-6">
-            <div class="relative w-20 h-20 rounded-full flex items-center justify-center animate-scale-in" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); box-shadow: 0 8px 32px rgba(5, 150, 105, 0.4);">
-              <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                <path d="M12 3l7 4v5c0 5-3.5 8.5-7 9.8C8.5 20.5 5 17 5 12V7l7-4z" stroke-linejoin="round"/>
-              </svg>
-              <div class="absolute inset-0 rounded-full animate-ping opacity-20" style="background-color: #059669;"></div>
+            <div class="relative w-20 h-20 flex items-center justify-center">
+              <img class="home-swallow" src="Swallow-fullblack.svg" alt="" aria-hidden="true">
             </div>
           </div>
 
@@ -474,16 +482,12 @@
 
       if (badgeContainer) {
         badgeContainer.classList.add('is-invalid');
-        badgeContainer.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
-        badgeContainer.style.boxShadow = '0 8px 32px rgba(220, 38, 38, 0.35)';
-      }
-
-      if (badgePing) {
-        badgePing.style.backgroundColor = '#dc2626';
+        badgeContainer.style.background = 'transparent';
+        badgeContainer.style.boxShadow = 'none';
       }
 
       if (badgeIcon) {
-        badgeIcon.innerHTML = '<path d="M8 8l8 8M16 8l-8 8" stroke="white" stroke-width="2.5" stroke-linecap="round" />';
+        badgeIcon.innerHTML = '<path d="M7 7l10 10M17 7L7 17" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" />';
       }
 
       if (locationCard) {
