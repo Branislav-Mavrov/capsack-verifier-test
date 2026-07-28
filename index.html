@@ -175,6 +175,39 @@
       .verification-ring::after { animation: none; opacity: 0; }
     }
 
+
+    .language-switcher {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(232, 228, 222, 0.95);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .language-button {
+      min-width: 2.35rem;
+      padding: 0.35rem 0.55rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #6b6b6b;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .language-button[aria-pressed="true"] {
+      color: #ffffff;
+      background-color: #059669;
+    }
+
     body { box-sizing: border-box; }
   </style>
 </head>
@@ -188,6 +221,12 @@
         <div class="absolute -top-4 -left-4 w-24 h-24 border border-emerald-500/20 rounded-full animate-scale-in"></div>
         <div class="absolute -bottom-6 -right-6 w-32 h-32 border border-emerald-500/10 rounded-full animate-scale-in delay-1"></div>
 
+
+        <div class="language-switcher" aria-label="Language">
+          <button type="button" class="language-button" data-language="en" aria-pressed="true">EN</button>
+          <button type="button" class="language-button" data-language="es" aria-pressed="false">ES</button>
+        </div>
+
         <!-- HOME STATE -->
         <div id="home-state" class="hidden relative rounded-3xl p-8 md:p-10 shadow-2xl animate-fade-up" style="background: linear-gradient(180deg, #f8f6f3 0%, #f0ece6 100%);">
           <div class="flex justify-center mb-6">
@@ -198,41 +237,41 @@
 
           <div class="text-center mb-6 animate-fade-up delay-2">
             <p class="text-xs font-semibold tracking-[0.25em] uppercase mb-2" style="color: #1a1a1a;">Real Credential</p>
-            <h1 class="font-display text-3xl md:text-4xl leading-tight" style="color: #1a1a1a;">
+            <h1 data-i18n="homeTitle" class="font-display text-3xl md:text-4xl leading-tight" style="color: #1a1a1a;">
               Capsack Authenticity Verifier
             </h1>
           </div>
 
           <div class="flex justify-center mb-6 animate-fade-up delay-3">
-            <img src="https://cdn.prod.website-files.com/6891dd4b18dbac62ec4179a4/69a47aa7c23e205458726e40_1193936c1d.jpg" alt="US Flag" class="w-full h-auto rounded-xl" loading="lazy">
+            <img src="https://cdn.prod.website-files.com/6891dd4b18dbac62ec4179a4/69a47aa7c23e205458726e40_1193936c1d.jpg" data-i18n-alt="flagAlt" alt="US Flag" class="w-full h-auto rounded-xl" loading="lazy">
           </div>
 
-          <p class="text-center text-base leading-relaxed mb-6 animate-fade-up delay-3" style="color: #4a4a4a;">
+          <p data-i18n="homeDescription" class="text-center text-base leading-relaxed mb-6 animate-fade-up delay-3" style="color: #4a4a4a;">
             This page is used to verify the origin and declared quality of the second-hand clothes and shoes contained in the scanned capsack.
           </p>
 
-          <p class="text-center text-sm leading-relaxed mb-8 animate-fade-up delay-3" style="color: #6b6b6b;">
+          <p data-i18n="homeQrDescription" class="text-center text-sm leading-relaxed mb-8 animate-fade-up delay-3" style="color: #6b6b6b;">
             Each QR code corresponds to a specific capsack and provides key information about its origin, weight, and identification.
           </p>
 
           <div class="rounded-xl p-5 mb-6 animate-fade-up delay-4" style="background-color: #ffffff; border: 1px solid #e8e4de;">
-            <p class="text-xs font-semibold tracking-wider uppercase mb-3 text-center" style="color: #059669;">Scan a valid QR code to view</p>
+            <p data-i18n="scanValid" class="text-xs font-semibold tracking-wider uppercase mb-3 text-center" style="color: #059669;">Scan a valid QR code to view</p>
             <div class="grid grid-cols-2 gap-3 text-center">
               <div class="rounded-lg p-3" style="background-color: #f8f6f3;">
-                <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Collection</p>
-                <p class="font-display text-lg" style="color: #1a1a1a;">Metro Area</p>
+                <p data-i18n="collection" class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Collection</p>
+                <p data-i18n="metroArea" class="font-display text-lg" style="color: #1a1a1a;">Metro Area</p>
               </div>
               <div class="rounded-lg p-3" style="background-color: #f8f6f3;">
                 <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Capsack</p>
-                <p class="font-display text-lg" style="color: #1a1a1a;">Weight</p>
+                <p data-i18n="weight" class="font-display text-lg" style="color: #1a1a1a;">Weight</p>
               </div>
               <div class="rounded-lg p-3" style="background-color: #f8f6f3;">
                 <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Capsack</p>
-                <p class="font-display text-lg" style="color: #1a1a1a;">Number</p>
+                <p data-i18n="number" class="font-display text-lg" style="color: #1a1a1a;">Number</p>
               </div>
               <div class="rounded-lg p-3" style="background-color: #f8f6f3;">
-                <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Verification</p>
-                <p class="font-display text-lg" style="color: #059669;">Status</p>
+                <p data-i18n="verification" class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Verification</p>
+                <p data-i18n="status" class="font-display text-lg" style="color: #059669;">Status</p>
               </div>
             </div>
           </div>
@@ -245,7 +284,7 @@
             <div class="flex-1 h-px" style="background: linear-gradient(90deg, transparent, #d4cfc7, transparent);"></div>
           </div>
 
-          <p class="text-center text-sm animate-fade-up delay-5" style="color: #6b6b6b;">
+          <p data-i18n="homeFooter" class="text-center text-sm animate-fade-up delay-5" style="color: #6b6b6b;">
             Built for transparency and trust in the second-hand wholesale trade.
           </p>
         </div>
@@ -264,18 +303,18 @@
           </div>
 
           <div class="text-center mb-6 animate-fade-up delay-2">
-            <p id="subtitle" class="text-xs font-semibold tracking-[0.25em] uppercase mb-2" style="color: #059669;">Authenticity Verified</p>
+            <p id="subtitle" data-i18n="verifiedSubtitle" class="text-xs font-semibold tracking-[0.25em] uppercase mb-2" style="color: #059669;">Authenticity Verified</p>
             <h1 id="main-title" class="font-display text-3xl md:text-4xl leading-tight" style="color: #1a1a1a;">
-              Second-Hand Credential<br>
-              <span id="main-title-accent" style="color: #047857;">Untouched</span>
+              <span data-i18n="credentialTitle">Second-Hand Credential</span><br>
+              <span id="main-title-accent" data-i18n="untouched" style="color: #047857;">Untouched</span>
             </h1>
           </div>
 
           <div class="flex justify-center mb-6 animate-fade-up delay-3">
-            <img src="https://cdn.prod.website-files.com/6891dd4b18dbac62ec4179a4/69a47aa7c23e205458726e40_1193936c1d.jpg" alt="US Flag" class="w-full h-auto rounded-xl" loading="lazy">
+            <img src="https://cdn.prod.website-files.com/6891dd4b18dbac62ec4179a4/69a47aa7c23e205458726e40_1193936c1d.jpg" data-i18n-alt="flagAlt" alt="US Flag" class="w-full h-auto rounded-xl" loading="lazy">
           </div>
 
-          <p id="description" class="text-center text-base leading-relaxed mb-8 animate-fade-up delay-3" style="color: #4a4a4a;">
+          <p id="description" data-i18n-html="verifiedDescription" class="text-center text-base leading-relaxed mb-8 animate-fade-up delay-3" style="color: #4a4a4a;">
             This Capsack Contains<br>
             Second Hand Clothes and Shoes<br>
             Proudly Collected and Packed in the USA
@@ -290,16 +329,16 @@
                 </svg>
               </div>
               <div class="flex-1">
-                <p id="origin-label" class="text-xs font-semibold tracking-wider uppercase mb-1" style="color: #059669;">Collection Origin</p>
+                <p id="origin-label" data-i18n="collectionOrigin" class="text-xs font-semibold tracking-wider uppercase mb-1" style="color: #059669;">Collection Origin</p>
                 <p id="location-text" class="font-display text-xl" style="color: #1a1a1a;">San Francisco, CA</p>
-                <p id="country-text" class="text-sm" style="color: #6b6b6b;">United States of America</p>
+                <p id="country-text" data-i18n="usa" class="text-sm" style="color: #6b6b6b;">United States of America</p>
               </div>
             </div>
           </div>
 
           <div id="metrics-card" class="rounded-xl p-4 mb-6 animate-fade-up delay-4 flex items-center justify-between shadow-sm" style="background-color: #ffffff; border: 1px solid #e8e4de;">
             <div class="text-center flex-1 border-r" style="border-color: #e8e4de;">
-              <p class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Weight</p>
+              <p data-i18n="weight" class="text-[10px] font-semibold tracking-wider uppercase mb-1" style="color: #6b6b6b;">Weight</p>
               <p id="weight-text" class="font-display text-xl" style="color: #1a1a1a;">369 <span class="text-sm font-body text-gray-500">lbs</span></p>
             </div>
             <div class="text-center flex-1">
@@ -318,9 +357,9 @@
                 </svg>
               </div>
               <div class="flex-1">
-                <p class="text-xs font-semibold tracking-wider uppercase mb-1" style="color: #dc2626;">Verification Error</p>
-                <p class="font-display text-xl mb-1" style="color: #1a1a1a;">Invalid QR Code</p>
-                <p class="text-sm" style="color: #6b6b6b;">
+                <p data-i18n="verificationError" class="text-xs font-semibold tracking-wider uppercase mb-1" style="color: #dc2626;">Verification Error</p>
+                <p data-i18n="invalidQr" class="font-display text-xl mb-1" style="color: #1a1a1a;">Invalid QR Code</p>
+                <p data-i18n="errorDetails" class="text-sm" style="color: #6b6b6b;">
                   The scanned link is missing required verification data or contains an unsupported format.
                 </p>
               </div>
@@ -337,12 +376,12 @@
 
           <div class="flex items-center justify-center gap-6 pt-2 animate-fade-up delay-5">
             <div class="text-center">
-              <p id="verified-label" class="text-xs uppercase tracking-wider mb-1" style="color: #9a9a9a;">Verified</p>
+              <p id="verified-label" data-i18n="verified" class="text-xs uppercase tracking-wider mb-1" style="color: #9a9a9a;">Verified</p>
               <p id="verify-date" class="text-sm font-semibold" style="color: #1a1a1a;">Today</p>
             </div>
             <div class="w-px h-8" style="background-color: #e8e4de;"></div>
             <div class="text-center">
-              <p class="text-xs uppercase tracking-wider mb-1" style="color: #9a9a9a;">Status</p>
+              <p data-i18n="status" class="text-xs uppercase tracking-wider mb-1" style="color: #9a9a9a;">Status</p>
               <p id="status-text" class="text-sm font-semibold" style="color: #059669;">Authentic ✓</p>
             </div>
           </div>
@@ -356,63 +395,121 @@
   </div>
 
   <script>
+    const translations = {
+      en: {
+        pageTitleHome: 'Capsack Authenticity Verifier',
+        pageTitleVerified: 'Authentication Verified',
+        pageTitleInvalid: 'Verification Failed',
+        homeTitle: 'Capsack Authenticity Verifier',
+        flagAlt: 'US Flag',
+        homeDescription: 'This page is used to verify the origin and declared quality of the second-hand clothes and shoes contained in the scanned capsack.',
+        homeQrDescription: 'Each QR code corresponds to a specific capsack and provides key information about its origin, weight, and identification.',
+        scanValid: 'Scan a valid QR code to view',
+        collection: 'Collection',
+        metroArea: 'Metro Area',
+        weight: 'Weight',
+        number: 'Number',
+        verification: 'Verification',
+        status: 'Status',
+        homeFooter: 'Built for transparency and trust in the second-hand wholesale trade.',
+        verifiedSubtitle: 'Authenticity Verified',
+        credentialTitle: 'Second-Hand Credential',
+        untouched: 'Untouched',
+        verifiedDescription: 'This Capsack Contains<br>Second Hand Clothes and Shoes<br>Proudly Collected and Packed in the USA',
+        collectionOrigin: 'Collection Origin',
+        usa: 'United States of America',
+        verificationError: 'Verification Error',
+        invalidQr: 'Invalid QR Code',
+        errorDetails: 'The scanned link is missing required verification data or contains an unsupported format.',
+        verified: 'Verified',
+        checked: 'Checked',
+        authentic: 'Authentic ✓',
+        invalid: 'Invalid ✕',
+        unavailable: 'Unavailable',
+        scanValidCapsack: 'Please scan a valid capsack QR code',
+        invalidDescription: 'This verification link is incomplete or contains invalid capsack information.',
+        footerVerified: 'Sustainable fashion starts with transparency',
+        footerInvalid: 'Verification failed – please use a valid QR code'
+      },
+      es: {
+        pageTitleHome: 'Verificador de autenticidad de Capsack',
+        pageTitleVerified: 'Autenticidad verificada',
+        pageTitleInvalid: 'Error de verificación',
+        homeTitle: 'Verificador de autenticidad de Capsack',
+        flagAlt: 'Bandera de Estados Unidos',
+        homeDescription: 'Esta página se utiliza para verificar el origen y la calidad declarada de la ropa y el calzado de segunda mano contenidos en el Capsack escaneado.',
+        homeQrDescription: 'Cada código QR corresponde a un Capsack específico y proporciona información clave sobre su origen, peso e identificación.',
+        scanValid: 'Escanea un código QR válido para ver',
+        collection: 'Recolección',
+        metroArea: 'Área metropolitana',
+        weight: 'Peso',
+        number: 'Número',
+        verification: 'Verificación',
+        status: 'Estado',
+        homeFooter: 'Creado para brindar transparencia y confianza en el comercio mayorista de segunda mano.',
+        verifiedSubtitle: 'Autenticidad verificada',
+        credentialTitle: 'Credencial de segunda mano',
+        untouched: 'Sin abrir',
+        verifiedDescription: 'Este Capsack contiene<br>ropa y calzado de segunda mano<br>recolectados y empacados con orgullo en Estados Unidos',
+        collectionOrigin: 'Origen de recolección',
+        usa: 'Estados Unidos de América',
+        verificationError: 'Error de verificación',
+        invalidQr: 'Código QR no válido',
+        errorDetails: 'Al enlace escaneado le faltan datos de verificación obligatorios o contiene un formato no compatible.',
+        verified: 'Verificado',
+        checked: 'Revisado',
+        authentic: 'Auténtico ✓',
+        invalid: 'No válido ✕',
+        unavailable: 'No disponible',
+        scanValidCapsack: 'Escanea un código QR válido de Capsack',
+        invalidDescription: 'Este enlace de verificación está incompleto o contiene información no válida del Capsack.',
+        footerVerified: 'La moda sostenible comienza con la transparencia',
+        footerInvalid: 'La verificación falló – utiliza un código QR válido'
+      }
+    };
+
     const metroMap = {
-      "chicago": "Chicago, IL",
-      "dallas": "Dallas, TX",
-      "fresno": "Fresno, CA",
-      "houston": "Houston, TX",
-      "los-angeles": "Los Angeles, CA",
-      "miami": "Miami, FL",
-      "new-haven": "New Haven, CT",
-      "new-jersey": "New Jersey",
-      "new-york": "New York, NY",
-      "orlando": "Orlando, FL",
-      "philadelphia": "Philadelphia, PA",
-      "portland": "Portland, OR",
-      "sacramento": "Sacramento, CA",
-      "san-diego": "San Diego, CA",
-      "san-francisco": "San Francisco, CA",
-      "santa-rosa": "Santa Rosa, CA",
-      "seattle": "Seattle, WA",
-      "tampa": "Tampa, FL",
-      "washington-dc": "Washington D.C."
+      'chicago': 'Chicago, IL',
+      'dallas': 'Dallas, TX',
+      'fresno': 'Fresno, CA',
+      'houston': 'Houston, TX',
+      'los-angeles': 'Los Angeles, CA',
+      'miami': 'Miami, FL',
+      'new-haven': 'New Haven, CT',
+      'new-jersey': 'New Jersey',
+      'new-york': 'New York, NY',
+      'orlando': 'Orlando, FL',
+      'philadelphia': 'Philadelphia, PA',
+      'portland': 'Portland, OR',
+      'sacramento': 'Sacramento, CA',
+      'san-diego': 'San Diego, CA',
+      'san-francisco': 'San Francisco, CA',
+      'santa-rosa': 'Santa Rosa, CA',
+      'seattle': 'Seattle, WA',
+      'tampa': 'Tampa, FL',
+      'washington-dc': 'Washington D.C.'
     };
 
     const params = new URLSearchParams(window.location.search);
-
-    // Read only the 3 public frontend parameters
     const metroSlug = (params.get('metro') || '').toLowerCase().trim();
     const weightRaw = (params.get('weight') || '').trim();
     const capsackIdRaw = (params.get('id') || '').trim();
 
-    // Presence of the 3 public parameters only
     const hasMetroParam = params.has('metro');
     const hasWeightParam = params.has('weight');
     const hasIdParam = params.has('id');
-
     const hasAnyPublicParams = hasMetroParam || hasWeightParam || hasIdParam;
-    const hasAllPublicParams = hasMetroParam && hasWeightParam && hasIdParam;
 
     const isValidMetro = Object.prototype.hasOwnProperty.call(metroMap, metroSlug);
     const isValidWeight = /^\d+(\.\d+)?$/.test(weightRaw);
     const isValidCapsackId = /^[a-zA-Z0-9-]+$/.test(capsackIdRaw);
-
-    // A metro-only URL is a valid public verification link. Weight and capsack ID
-    // are optional, but when one is present both must be present and valid.
     const hasNoMetricsParams = !hasWeightParam && !hasIdParam;
     const hasValidMetricsParams = hasWeightParam && hasIdParam && isValidWeight && isValidCapsackId;
     const isValidQr = hasMetroParam && isValidMetro && (hasNoMetricsParams || hasValidMetricsParams);
 
-    const today = new Date().toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
-
     const homeState = document.getElementById('home-state');
     const verifyState = document.getElementById('verify-state');
     const footerText = document.getElementById('footer-text');
-
     const dateElement = document.getElementById('verify-date');
     const locationElement = document.getElementById('location-text');
     const weightElement = document.getElementById('weight-text');
@@ -424,7 +521,6 @@
     const countryElement = document.getElementById('country-text');
     const badgeContainer = document.getElementById('badge-container');
     const badgeIcon = document.getElementById('badge-icon');
-    const badgePing = document.getElementById('badge-ping');
     const locationCard = document.getElementById('location-card');
     const metricsCard = document.getElementById('metrics-card');
     const errorPanel = document.getElementById('error-panel');
@@ -432,122 +528,196 @@
     const verifiedLabel = document.getElementById('verified-label');
     const bottomShield = document.getElementById('bottom-shield');
 
-    function showHomeState() {
-      homeState.classList.remove('hidden');
-      verifyState.classList.add('hidden');
+    let currentLanguage = 'es';
+    let currentState = 'home';
 
-      if (footerText) {
-        footerText.textContent = 'Built for transparency and trust in the second-hand wholesale trade.';
-      }
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+      return match ? decodeURIComponent(match[1]) : null;
     }
 
-    function showVerifiedState() {
-      homeState.classList.add('hidden');
-      verifyState.classList.remove('hidden');
-
-      const metroDisplay = metroMap[metroSlug];
-
-      if (dateElement) dateElement.textContent = today;
-      if (locationElement) locationElement.textContent = metroDisplay;
-      if (weightElement) {
-        weightElement.innerHTML = `${weightRaw} <span class="text-sm font-body text-gray-500">lbs</span>`;
-      }
-      if (capsackElement) capsackElement.textContent = capsackIdRaw;
-
-      if (metricsCard) {
-        metricsCard.classList.toggle('hidden', hasNoMetricsParams);
-      }
-      if (errorPanel) errorPanel.classList.add('hidden');
-
-      if (footerText) {
-        footerText.textContent = 'Sustainable fashion starts with transparency';
-      }
+    function saveLanguage(language) {
+      document.cookie = `preferredLanguage=${language}; Path=/; Max-Age=31536000; SameSite=Lax; Secure`;
     }
 
-    function showInvalidState() {
-      homeState.classList.add('hidden');
-      verifyState.classList.remove('hidden');
+    function t(key) {
+      return translations[currentLanguage][key];
+    }
 
-      if (dateElement) dateElement.textContent = today;
+    function formatDate() {
+      return new Date().toLocaleDateString(currentLanguage === 'es' ? 'es-MX' : 'en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
 
+    function applyTranslations() {
+      document.documentElement.lang = currentLanguage;
+
+      document.querySelectorAll('[data-i18n]').forEach((element) => {
+        element.textContent = t(element.dataset.i18n);
+      });
+
+      document.querySelectorAll('[data-i18n-html]').forEach((element) => {
+        element.innerHTML = t(element.dataset.i18nHtml);
+      });
+
+      document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
+        element.alt = t(element.dataset.i18nAlt);
+      });
+
+      document.querySelectorAll('[data-language]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.language === currentLanguage));
+      });
+    }
+
+    function resetDynamicStyles() {
       if (subtitleElement) {
-        subtitleElement.textContent = 'Verification Failed';
-        subtitleElement.style.color = '#dc2626';
+        subtitleElement.style.color = '#059669';
+        subtitleElement.textContent = t('verifiedSubtitle');
       }
-
-      if (mainTitleElement) {
-        mainTitleElement.innerHTML = 'Invalid QR Code';
-      }
-
       if (descriptionElement) {
-        descriptionElement.innerHTML = 'This verification link is incomplete or contains invalid capsack information.';
-        descriptionElement.style.color = '#6b7280';
+        descriptionElement.style.color = '#4a4a4a';
+        descriptionElement.innerHTML = t('verifiedDescription');
       }
-
       if (originLabel) {
-        originLabel.style.color = '#dc2626';
+        originLabel.style.color = '#059669';
+        originLabel.textContent = t('collectionOrigin');
       }
-
-      if (locationElement) {
-        locationElement.textContent = 'Unavailable';
-      }
-
-      if (countryElement) {
-        countryElement.textContent = 'Please scan a valid capsack QR code';
-      }
-
+      if (countryElement) countryElement.textContent = t('usa');
       if (statusElement) {
-        statusElement.textContent = 'Invalid ✕';
-        statusElement.style.color = '#dc2626';
+        statusElement.style.color = '#059669';
+        statusElement.textContent = t('authentic');
       }
-
-      if (verifiedLabel) {
-        verifiedLabel.textContent = 'Checked';
-      }
-
+      if (verifiedLabel) verifiedLabel.textContent = t('verified');
       if (badgeContainer) {
-        badgeContainer.classList.add('is-invalid');
+        badgeContainer.classList.remove('is-invalid');
         badgeContainer.style.background = 'transparent';
         badgeContainer.style.boxShadow = 'none';
       }
-
       if (badgeIcon) {
-        badgeIcon.innerHTML = '<path d="M7 7l10 10M17 7L7 17" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" />';
+        badgeIcon.innerHTML = '<path class="animate-checkmark" d="M5 13l4 4L19 7" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />';
       }
-
       if (locationCard) {
-        locationCard.style.border = '1px solid #fecaca';
-        locationCard.style.backgroundColor = '#fff7f7';
+        locationCard.style.border = '1px solid #e8e4de';
+        locationCard.style.backgroundColor = '#ffffff';
       }
+      if (bottomShield) bottomShield.style.color = '#059669';
+    }
 
-      if (bottomShield) {
-        bottomShield.style.color = '#dc2626';
+    function showHomeState() {
+      currentState = 'home';
+      resetDynamicStyles();
+      homeState.classList.remove('hidden');
+      verifyState.classList.add('hidden');
+      footerText.textContent = t('homeFooter');
+      document.title = t('pageTitleHome');
+    }
+
+    function showVerifiedState() {
+      currentState = 'verified';
+      resetDynamicStyles();
+      homeState.classList.add('hidden');
+      verifyState.classList.remove('hidden');
+
+      dateElement.textContent = formatDate();
+      locationElement.textContent = metroMap[metroSlug];
+
+      if (weightRaw) {
+        weightElement.innerHTML = `${weightRaw} <span class="text-sm font-body text-gray-500">lbs</span>`;
       }
+      capsackElement.textContent = capsackIdRaw;
 
-      if (metricsCard) {
-        metricsCard.classList.add('hidden');
-      }
+      metricsCard.classList.toggle('hidden', hasNoMetricsParams);
+      errorPanel.classList.add('hidden');
+      footerText.textContent = t('footerVerified');
+      document.title = t('pageTitleVerified');
+    }
 
-      if (errorPanel) {
-        errorPanel.classList.remove('hidden');
-      }
+    function showInvalidState() {
+      currentState = 'invalid';
+      resetDynamicStyles();
+      homeState.classList.add('hidden');
+      verifyState.classList.remove('hidden');
 
-      if (footerText) {
-        footerText.textContent = 'Verification failed – please use a valid QR code';
+      dateElement.textContent = formatDate();
+
+      subtitleElement.textContent = t('pageTitleInvalid');
+      subtitleElement.style.color = '#dc2626';
+
+      mainTitleElement.textContent = t('invalidQr');
+
+      descriptionElement.textContent = t('invalidDescription');
+      descriptionElement.style.color = '#6b7280';
+
+      originLabel.style.color = '#dc2626';
+      locationElement.textContent = t('unavailable');
+      countryElement.textContent = t('scanValidCapsack');
+
+      statusElement.textContent = t('invalid');
+      statusElement.style.color = '#dc2626';
+      verifiedLabel.textContent = t('checked');
+
+      badgeContainer.classList.add('is-invalid');
+      badgeContainer.style.background = 'transparent';
+      badgeContainer.style.boxShadow = 'none';
+
+      badgeIcon.innerHTML = '<path d="M7 7l10 10M17 7L7 17" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" />';
+
+      locationCard.style.border = '1px solid #fecaca';
+      locationCard.style.backgroundColor = '#fff7f7';
+      bottomShield.style.color = '#dc2626';
+
+      metricsCard.classList.add('hidden');
+      errorPanel.classList.remove('hidden');
+
+      footerText.textContent = t('footerInvalid');
+      document.title = t('pageTitleInvalid');
+    }
+
+    function render() {
+      applyTranslations();
+
+      if (!hasAnyPublicParams) {
+        showHomeState();
+      } else if (isValidQr) {
+        showVerifiedState();
+      } else {
+        showInvalidState();
       }
     }
 
-    // Routing logic:
-    // 1) No public params at all -> Home
-    // 2) Valid metro, optionally with a valid weight + ID pair -> Verified
-    // 3) Unknown metro or incomplete/invalid optional data -> Invalid
-    if (!hasAnyPublicParams) {
-      showHomeState();
-    } else if (isValidQr) {
-      showVerifiedState();
-    } else {
-      showInvalidState();
+    function setLanguage(language, persist = true) {
+      if (language !== 'en' && language !== 'es') return;
+      currentLanguage = language;
+      if (persist) saveLanguage(language);
+      render();
     }
+
+    async function detectInitialLanguage() {
+      const savedLanguage = getCookie('preferredLanguage');
+
+      if (savedLanguage === 'en' || savedLanguage === 'es') {
+        setLanguage(savedLanguage, false);
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/language', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Language lookup failed');
+        const data = await response.json();
+        setLanguage(data.language === 'en' ? 'en' : 'es', false);
+      } catch (error) {
+        setLanguage('es', false);
+      }
+    }
+
+    document.querySelectorAll('[data-language]').forEach((button) => {
+      button.addEventListener('click', () => setLanguage(button.dataset.language));
+    });
+
+    detectInitialLanguage();
   </script>
 </body>
 </html>
