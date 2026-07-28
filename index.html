@@ -38,6 +38,22 @@
       50%, 100% { opacity: 0; transform: scale(0.9); }
     }
 
+    @keyframes show-error {
+      0% { opacity: 0; transform: scale(0.9); }
+      5%, 100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes error-pulse {
+      0% { opacity: 0.72; transform: scale(0.72); }
+      65%, 100% { opacity: 0; transform: scale(1.42); }
+    }
+
+    @keyframes error-pulse-secondary {
+      0%, 18% { opacity: 0; transform: scale(0.72); }
+      19% { opacity: 0.55; transform: scale(0.72); }
+      84%, 100% { opacity: 0; transform: scale(1.42); }
+    }
+
     .animate-checkmark {
       stroke-dasharray: 100;
       stroke-dashoffset: 100;
@@ -119,20 +135,22 @@
     }
 
     #badge-container.is-invalid .badge-check {
-      animation: show-check 4s ease-in-out infinite;
+      animation: show-error 0.25s ease-out forwards;
     }
 
     #badge-container.is-invalid .badge-swallow {
-      display: block;
+      display: none;
     }
 
     #badge-container.is-invalid .verification-ring {
       display: block;
       border-color: rgba(220, 38, 38, 0.48);
+      animation: error-pulse 2s ease-out infinite;
     }
 
     #badge-container.is-invalid .verification-ring::after {
       border-color: rgba(220, 38, 38, 0.28);
+      animation: error-pulse-secondary 2s ease-out infinite;
     }
 
     .home-swallow {
@@ -146,6 +164,13 @@
     @media (prefers-reduced-motion: reduce) {
       .badge-check { display: none; animation: none; }
       .badge-swallow { display: block; animation: none; opacity: 1; transform: none; }
+      #badge-container.is-invalid .badge-check {
+        display: block;
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      #badge-container.is-invalid .badge-swallow { display: none; }
       .verification-ring,
       .verification-ring::after { animation: none; opacity: 0; }
     }
